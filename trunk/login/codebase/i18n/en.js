@@ -32,10 +32,6 @@ webix.i18n.locales["en-US"]={
 		today: "Today"
     },
 
-    controls:{
-    	select:"Select",
-    	invalidMessage: "Invalid input value"
-    },
     dataExport:{
 		page:"Page",
 		of:"of"
@@ -82,5 +78,10 @@ webix.i18n.locales["en-US"]={
         underline: "Underline",
         bold: "Bold",
         italic: "Italic"
+    },
+    combo:{
+    	select:"Select",
+    	selectAll:"Select all",
+    	unselectAll:"Unselect all"
     }
 };

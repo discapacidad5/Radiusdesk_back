@@ -29,10 +29,6 @@ webix.i18n.locales["be-BY"]={
 		clear: "Ачысціць"
 	},
 
-	controls:{
-    	select:"Выбраць",
-    	invalidMessage:"Няправільнае значэнне"
-    },
     dataExport:{
 		page:"Старонка",
 		of:"з"
@@ -79,5 +75,10 @@ webix.i18n.locales["be-BY"]={
         underline: "Падкрэсліванне",
         bold: "Паўтлусты",
         italic: "Курсіў"
+    },
+    combo:{
+    	select:"Абраць",
+    	selectAll:"Абраць усё",
+    	unselectAll:"Ачысціць ўсе"
     }
 };

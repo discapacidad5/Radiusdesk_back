@@ -4,7 +4,7 @@ webix.i18n.locales["it-IT"] = {
 	groupSize:3,
 	decimalDelimiter:",",
 	decimalSize:2,
-	dateFormat:"%d/%n/%Y",
+	dateFormat:"%d/%m/%Y",
 	timeFormat:"%H:%i",
 	longDateFormat:"%j %F %Y",
 	fullDateFormat:"%j %F %Y %H:%i",
@@ -25,21 +25,17 @@ webix.i18n.locales["it-IT"] = {
 		hours: "Orario",
 		minutes: "Minuti",
 		done:"Pronto",
-		clear: "Chiara",
+		clear: "Pulisci",
 		today: "Oggi"
     },
 
-    controls:{
-		select:"Selezionare",
-		invalidMessage:"Valore di input non valido"
-    },
     dataExport:{
 		page:"Pagina",
 		of:"di"
     },
     PDFviewer:{
 		of:"di",
-		automaticZoom:"Automatik  Zoom",
+		automaticZoom:"Zoom automatico",
 		actualSize:"Dimensione reale",
 		pageFit:"Dimensioni della pagina",
 		pageWidth:"Larghezza della pagina",
@@ -47,8 +43,8 @@ webix.i18n.locales["it-IT"] = {
     },
     aria:{
 		calendar:"Calendario",
-		increaseValue:"Aumentare il valore",
-		decreaseValue:"Riduzione valore",
+		increaseValue:"Aumenta il valore",
+		decreaseValue:"Riduci il valore",
 		navMonth:["Il mese scorso", "Il prossimo mese"],
 		navYear:["L'anno scorso", "L'anno prossimo"],
 		navDecade:["Decennio precedente", "Prossimo decennio"],
@@ -64,20 +60,25 @@ webix.i18n.locales["it-IT"] = {
 		openGroup:"Aperto gruppo di colonne",
 		closeGroup:"Chiudi gruppo di colonne",
 		closeTab:"Chiudi tab",
-		showTabs:"Mostra di più tabs",
+		showTabs:"Mostra più tabs",
 		resetTreeMap:"Tornare alla vista originale",
 		navTreeMap:"Livello superiore",
-		nextTab:"Tab prossimo",
+		nextTab:"Tab successivo",
 		prevTab:"Tab precedente",
 		multitextSection:"Aggiungi elemento",
 		multitextextraSection:"Rimuovere l'elemento",
-		showChart:"Mostrare chart",
-		hideChart:"Nascondere chart",
-		resizeChart:"Ridimensionare chart"
+		showChart:"Mostrare grafico",
+		hideChart:"Nascondere grafico",
+		resizeChart:"Ridimensionare grafico"
     },
     richtext:{
         underline: "Sottolineare",
         bold: "Grassetto",
         italic: "Corsivo"
+    },
+    combo:{
+    	select:"Selezionare",
+    	selectAll:"Seleziona tutto",
+    	unselectAll:"Deseleziona tutto"
     }
 };
