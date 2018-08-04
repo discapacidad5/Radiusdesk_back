@@ -29,10 +29,6 @@ webix.i18n.locales["ja-JP"]={
 		today: "今日"
 	},
 
-	controls:{
-		select:"選択する",
-		invalidMessage: "無効な入力値"
-	},
 	dataExport:{
 		page:"ページ",
 		of:"から"
@@ -79,5 +75,10 @@ webix.i18n.locales["ja-JP"]={
         underline: "アンダーライン",
         bold: "大胆な",
         italic: "イタリック"
+    },
+    combo:{
+    	select:"選択する",
+    	selectAll:"すべて選択",
+    	unselectAll:"すべての選択を解除する"
     }
 };
