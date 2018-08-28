@@ -319,7 +319,11 @@ Ext.define('Rd.controller.cDynamicClients', {
             },
             '#pnlMapsEdit #save': {
                 click: me.btnMapSave
+            },
+            '#tabDataLimit #chkDataLimitActive' : {
+                change:     me.chkDataLimitActiveChange
             }
+            
         });
     },
     appClose:   function(){
@@ -1488,6 +1492,28 @@ Ext.define('Rd.controller.cDynamicClients', {
             },
             scope: me
         });
+    },
+    chkDataLimitActiveChange: function(chk){
+        var me      = this;
+        var form    = chk.up('form');
+        var amount  = form.down('#nrDataLimitAmount');
+        var unit    = form.down('#cmbDataLimitUnit');
+        var reset   = form.down('#nrDataLimitResetOn');
+        if(chk.getValue()){
+            amount.setVisible(true);
+            amount.setDisabled(false);
+            unit.setVisible(true);
+            unit.setDisabled(false);
+            reset.setVisible(true);
+            reset.setDisabled(false);
+        }else{
+            amount.setVisible(false);
+            amount.setDisabled(true);
+            unit.setVisible(false);
+            unit.setDisabled(true);
+            reset.setVisible(false);
+            reset.setDisabled(true);
+        }
     }
     
 });
