@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.18, for Linux (i686)
+-- MySQL dump 10.13  Distrib 5.7.23, for Linux (i686)
 --
 -- Host: localhost    Database: rd
 -- ------------------------------------------------------
--- Server version	5.7.18-0ubuntu0.16.04.1
+-- Server version	5.7.23-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -859,6 +859,10 @@ CREATE TABLE `dynamic_clients` (
   `user_id` int(11) DEFAULT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
+  `data_limit_active` tinyint(1) NOT NULL DEFAULT '0',
+  `data_limit_amount` int(11) NOT NULL DEFAULT '1',
+  `data_limit_unit` enum('kb','mb','gb','tb') DEFAULT 'mb',
+  `data_limit_reset_on` int(3) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -3548,4 +3552,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-15 17:45:21
+-- Dump completed on 2018-08-28 10:28:25
