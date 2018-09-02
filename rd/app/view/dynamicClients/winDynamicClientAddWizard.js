@@ -368,6 +368,30 @@ Ext.define('Rd.view.dynamicClients.winDynamicClientAddWizard', {
                                     minValue    : 1,
                                     hidden      : true,
                                     labelClsExtra   : 'lblRdReq'
+                                },
+                                {
+                                    xtype       : 'numberfield',
+                                    itemId      : 'nrDataLimitResetHour',
+                                    anchor      : '100%',
+                                    name        : 'data_limit_reset_hour',
+                                    fieldLabel  : 'Hour To Reset',
+                                    value       : 0,
+                                    maxValue    : 23,
+                                    minValue    : 0,
+                                    hidden      : true,
+                                    labelClsExtra   : 'lblRdReq'
+                                },
+                                {
+                                    xtype       : 'numberfield',
+                                    itemId      : 'nrDataLimitResetMinute',
+                                    anchor      : '100%',
+                                    name        : 'data_limit_reset_minute',
+                                    fieldLabel  : 'Minute To Reset',
+                                    value       : 0,
+                                    maxValue    : 59,
+                                    minValue    : 0,
+                                    hidden      : true,
+                                    labelClsExtra   : 'lblRdReq'
                                 }
                                 
                             ]

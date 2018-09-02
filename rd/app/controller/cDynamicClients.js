@@ -1499,6 +1499,8 @@ Ext.define('Rd.controller.cDynamicClients', {
         var amount  = form.down('#nrDataLimitAmount');
         var unit    = form.down('#cmbDataLimitUnit');
         var reset   = form.down('#nrDataLimitResetOn');
+        var hour    = form.down('#nrDataLimitResetHour');
+        var minute  = form.down('#nrDataLimitResetMinute');
         if(chk.getValue()){
             amount.setVisible(true);
             amount.setDisabled(false);
@@ -1506,6 +1508,10 @@ Ext.define('Rd.controller.cDynamicClients', {
             unit.setDisabled(false);
             reset.setVisible(true);
             reset.setDisabled(false);
+            hour.setVisible(true);
+            hour.setDisabled(false);
+            minute.setVisible(true);
+            minute.setDisabled(false);
         }else{
             amount.setVisible(false);
             amount.setDisabled(true);
@@ -1513,6 +1519,10 @@ Ext.define('Rd.controller.cDynamicClients', {
             unit.setDisabled(true);
             reset.setVisible(false);
             reset.setDisabled(true);
+            hour.setVisible(false);
+            hour.setDisabled(true);
+            minute.setVisible(false);
+            minute.setDisabled(true);
         }
     }
     
