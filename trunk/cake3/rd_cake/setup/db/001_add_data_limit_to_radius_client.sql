@@ -25,6 +25,16 @@ if not exists (select * from information_schema.columns
     alter table dynamic_clients add column `data_limit_reset_on` int(3) NOT NULL DEFAULT 1;
 end if;
 
+if not exists (select * from information_schema.columns
+    where column_name = 'data_limit_reset_hour' and table_name = 'dynamic_clients' and table_schema = 'rd') then
+    alter table dynamic_clients add column `data_limit_reset_hour` int(3) NOT NULL DEFAULT 0;
+end if;
+
+if not exists (select * from information_schema.columns
+    where column_name = 'data_limit_reset_minute' and table_name = 'dynamic_clients' and table_schema = 'rd') then
+    alter table dynamic_clients add column `data_limit_reset_minute` int(3) NOT NULL DEFAULT 0;
+end if;
+
 
 end//
 

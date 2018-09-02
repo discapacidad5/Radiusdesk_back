@@ -863,6 +863,8 @@ CREATE TABLE `dynamic_clients` (
   `data_limit_amount` int(11) NOT NULL DEFAULT '1',
   `data_limit_unit` enum('kb','mb','gb','tb') DEFAULT 'mb',
   `data_limit_reset_on` int(3) NOT NULL DEFAULT '1',
+  `data_limit_reset_hour` int(3) NOT NULL DEFAULT '0',
+  `data_limit_reset_minute` int(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -3552,4 +3554,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-28 10:28:25
+-- Dump completed on 2018-09-03  0:29:32
