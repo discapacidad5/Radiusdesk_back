@@ -1,19 +1,19 @@
-Ext.define('Rd.view.dataUsage.pnlDataUsage', {
+Ext.define('Rd.view.dataUsage.pnlDataUsageClients', {
     extend      : 'Ext.panel.Panel',
-    alias       : 'widget.pnlDataUsage',
+    alias       : 'widget.pnlDataUsageClients',
     scrollable  : true,
     layout      : {
       type  : 'vbox',
       align : 'stretch'  
     },
     requires: [
-        'Rd.view.dataUsage.vcPnlDataUsage',
-        'Rd.view.dataUsage.pnlDataUsageDay',
-        'Rd.view.dataUsage.pnlDataUsageWeek',
-        'Rd.view.dataUsage.pnlDataUsageMonth',
+        'Rd.view.dataUsage.vcPnlDataUsageClients',
+        'Rd.view.dataUsage.pnlDataUsageClientsDay',
+        'Rd.view.dataUsage.pnlDataUsageClientsWeek',
+        'Rd.view.dataUsage.pnlDataUsageClientsMonth',
         'Rd.view.components.cmbRealm'
     ],
-    controller : 'vcPnlDataUsage',
+    controller : 'vcPnlDataUsageClients',
     initComponent: function() {
         var me      = this;
         
@@ -74,15 +74,15 @@ Ext.define('Rd.view.dataUsage.pnlDataUsage', {
           
         me.items = [
             {
-                xtype   : 'pnlDataUsageDay',
+                xtype   : 'pnlDataUsageClientsDay',
                 glyph   : Rd.config.icnHourStart
             },
             {
-                xtype   : 'pnlDataUsageWeek',
+                xtype   : 'pnlDataUsageClientsWeek',
                 glyph   : Rd.config.icnHourHalf
             },
             {
-                xtype   : 'pnlDataUsageMonth',
+                xtype   : 'pnlDataUsageClientsMonth',
                 glyph   : Rd.config.icnHourEnd
             }
         ];

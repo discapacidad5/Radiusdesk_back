@@ -29,6 +29,9 @@ Ext.define('Rd.model.mDynamicClient', {
          {name: 'data_limit_reset_on'},
          {name: 'data_limit_reset_hour'},
          {name: 'data_limit_reset_minute'},
+         {name: 'perc_data_used'},
+         {name: 'data_used'},
+         {name: 'data_cap'},
          {name: 'notes',        type: 'bool'  },
          {name: 'update',       type: 'bool'},
          {name: 'delete',       type: 'bool'}
