@@ -11,7 +11,7 @@ end if;
 
 if not exists (select * from information_schema.columns
     where column_name = 'data_limit_amount' and table_name = 'dynamic_clients' and table_schema = 'rd') then
-    alter table dynamic_clients add column `data_limit_amount` int(11) NOT NULL DEFAULT 1;
+    alter table dynamic_clients add column `data_limit_amount` float(14,3) NOT NULL DEFAULT 1;
 end if;
 
 
@@ -33,6 +33,11 @@ end if;
 if not exists (select * from information_schema.columns
     where column_name = 'data_limit_reset_minute' and table_name = 'dynamic_clients' and table_schema = 'rd') then
     alter table dynamic_clients add column `data_limit_reset_minute` int(3) NOT NULL DEFAULT 0;
+end if;
+
+if not exists (select * from information_schema.columns
+    where column_name = 'data_used' and table_name = 'dynamic_clients' and table_schema = 'rd') then
+    alter table dynamic_clients add column `data_used` bigint(20) DEFAULT NULL;
 end if;
 
 
