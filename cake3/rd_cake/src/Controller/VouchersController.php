@@ -632,7 +632,7 @@ class VouchersController extends AppController{
             return;
         }
 
-        $entity =  $this->{$this->main_model}->privateAttrAdd();
+        $entity =  $this->{$this->main_model}->privateAttrAdd($this->request);
         $errors = $entity->errors();
         if($errors){
             $message = __('Could not create item');
@@ -653,7 +653,7 @@ class VouchersController extends AppController{
             return;
         }
 
-        $entity =  $this->{$this->main_model}->privateAttrEdit();    
+        $entity =  $this->{$this->main_model}->privateAttrEdit($this->request);    
         $errors = $entity->errors();
         if($errors){
             $message = __('Could not edit item');
@@ -673,7 +673,7 @@ class VouchersController extends AppController{
         if(!$user){
             return;
         }
-        if($this->{$this->main_model}->privateAttrDelete()){
+        if($this->{$this->main_model}->privateAttrDelete($this->request)){
             $message = __('Could not delete some items');
             $this->JsonErrors->errorMessage($message);  
         }else{

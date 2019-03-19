@@ -6,6 +6,7 @@ use Cake\ORM\Behavior;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 
+
 class FreeRadiusBehavior extends Behavior {
 
     protected $Radchecks;
@@ -202,13 +203,14 @@ class FreeRadiusBehavior extends Behavior {
         return $items;
     }
 
-    public function privateAttrAdd(){
-        $this->request = Router::getRequest();
+    public function privateAttrAdd($request){
+    
+        $this->request = $request;
+        
         if(isset($this->request->query['username'])){
             $username                           = $this->request->query['username'];
             $this->request->data['username']    = $username;
             unset($this->request->data['id']); 
-
             if($this->request->data['type'] == 'check'){
 			    $entity = $this->{'Radchecks'}->newEntity($this->request->data);
                 $this->{'Radchecks'}->save($entity);
@@ -223,9 +225,9 @@ class FreeRadiusBehavior extends Behavior {
         }
     }
 
-    public function privateAttrEdit(){
+    public function privateAttrEdit($request){
 
-        $this->request = Router::getRequest();
+        $this->request = $request;
         if(isset($this->request->query['username'])){
             $username                           = $this->request->query['username'];
             $this->request->data['username']    = $username;
@@ -281,9 +283,9 @@ class FreeRadiusBehavior extends Behavior {
         }
     }
 
-    public function privateAttrDelete(){
+    public function privateAttrDelete($request){
         $fail_flag = false;
-        $this->request = Router::getRequest();
+        $this->request = $request;
         if(isset($this->request->data['id'])){   //Single item delete
             $type_id            = explode( '_', $this->request->data['id']);
             if(preg_match("/^chk_/",$this->request->data['id'])){    
