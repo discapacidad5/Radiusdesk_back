@@ -356,7 +356,7 @@ class FreeRadiusBehavior extends Behavior {
     private function _doAfterDelete($entity){
         $config = $this->config();
         if($config['for_model']== 'PermanentUsers'){
-            $this->_deleteUsernameEntriesFromTables($entity->name);
+            $this->_deleteUsernameEntriesFromTables($entity->username);
             
         }
 

@@ -28,6 +28,20 @@ class PermanentUsersTable extends Table
         $this->hasMany('Devices',['dependent' => true,'cascadeCallbacks' =>true]);
         
         $this->hasMany('TopUps',['dependent' => true,'cascadeCallbacks' =>true]);
+        $this->hasMany('Radchecks',[
+            'dependent' => true,
+            'cascadeCallbacks' =>true,
+            'foreignKey' => 'username',
+            'bindingKey' => 'username'
+        ]);
+        
+        $this->hasMany('Radreplies',[
+            'dependent' => true,
+            'cascadeCallbacks' =>true,
+            'foreignKey' => 'username',
+            'bindingKey' => 'username'
+        ]);
+        
     }
     
     public function validationDefault(Validator $validator){
@@ -37,6 +51,14 @@ class PermanentUsersTable extends Table
             ->add('username', [ 
                 'nameUnique' => [
                     'message' => 'The username you provided is already taken. Please provide another one.',
+                    'rule' => 'validateUnique', 
+                    'provider' => 'table'
+                ]
+            ])
+            ->allowEmpty('static_ip')
+            ->add('static_ip', [
+                'nameUnique' => [
+                    'message' => 'The Static IP Address is already taken',
                     'rule' => 'validateUnique', 
                     'provider' => 'table'
                 ]

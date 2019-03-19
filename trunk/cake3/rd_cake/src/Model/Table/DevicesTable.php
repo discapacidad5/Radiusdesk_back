@@ -9,14 +9,26 @@ class DevicesTable extends Table
 {
     public function initialize(array $config){
         $this->addBehavior('Timestamp');
-         $this->addBehavior('FreeRadius',
+        $this->addBehavior('FreeRadius',
             [
                 'for_model' => 'Devices'
             ]
         );
 
         $this->belongsTo('PermanentUsers'); 
-        $this->hasMany('DeviceNotes');     
+        $this->hasMany('DeviceNotes'); 
+        $this->hasMany('Radchecks',[
+            'dependent' => true,
+            'cascadeCallbacks' =>true,
+            'foreignKey' => 'username',
+            'bindingKey' => 'name'
+        ]);
+        $this->hasMany('Radreplies',[
+            'dependent' => true,
+            'cascadeCallbacks' =>true,
+            'foreignKey' => 'username',
+            'bindingKey' => 'name'
+        ]);        
     }
     
     public function validationDefault(Validator $validator){

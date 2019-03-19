@@ -17,6 +17,18 @@ class VouchersTable extends Table
         $this->belongsTo('Users');      
         $this->belongsTo('Profiles',['propertyName'  => 'real_profile']);
         $this->belongsTo('Realms',['propertyName'  => 'real_realm']);
+        $this->hasMany('Radchecks',[
+            'dependent' => true,
+            'cascadeCallbacks' =>true,
+            'foreignKey' => 'username',
+            'bindingKey' => 'name'
+        ]);
+        $this->hasMany('Radreplies',[
+            'dependent' => true,
+            'cascadeCallbacks' =>true,
+            'foreignKey' => 'username',
+            'bindingKey' => 'name'
+        ]);
     }
     
     public function validationDefault(Validator $validator){
