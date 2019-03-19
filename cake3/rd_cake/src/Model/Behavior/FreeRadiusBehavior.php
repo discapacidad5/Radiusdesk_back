@@ -133,7 +133,7 @@ class FreeRadiusBehavior extends Behavior {
             'username'  => $username,
             'attribute' => 'Cleartext-Password'
         ])->first();
-        return $qr->value;
+        return $qr ? $qr->value : '';
     }
 
     public function deviceMenuSettings($username){
@@ -739,6 +739,7 @@ class FreeRadiusBehavior extends Behavior {
         
         foreach(array_keys($this->puReplies) as $key){
            if(($entity->{$key} !== '')&&($entity->{$key} !== null)){
+                $value = $entity->{$key};
                 $this->_add_radreply_item($username,$this->puReplies["$key"],$value);
                 if($key =='static_ip'){
                     $this->_add_radreply_item($username,'Service-Type','Framed-User');
