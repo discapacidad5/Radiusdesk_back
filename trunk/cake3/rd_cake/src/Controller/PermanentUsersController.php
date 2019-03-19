@@ -67,7 +67,7 @@ class PermanentUsersController extends AppController{
                 array_push($heading_line,$c->name);
             }
         }
-        fputcsv($fp, $heading_line,';','"');
+        fputcsv($fp, $heading_line,',','"');
         foreach($q_r as $i){
 
             $columns    = array();
@@ -95,7 +95,7 @@ class PermanentUsersController extends AppController{
                         array_push($csv_line,$i->{$column_name});  
                     }
                 }
-                fputcsv($fp, $csv_line,';','"');
+                fputcsv($fp, $csv_line,',','"');
             }
         }
 
@@ -130,6 +130,7 @@ class PermanentUsersController extends AppController{
         if($this->CommonQuery->build_with_realm_query($query,$user,['Users','PermanentUserNotes' => ['Notes'],'Realms']) == false){
             return;
         }
+        
  
         $limit  = 50;
         $page   = 1;
@@ -148,14 +149,19 @@ class PermanentUsersController extends AppController{
         $q_r    = $query->all();
         $items  = array();
         
+        
         foreach($q_r as $i){
-              
+        
+            //print_r($i);
+            
             $owner_id   = $i->user_id;
+            
             if(!array_key_exists($owner_id,$this->owner_tree)){
                 $owner_tree     = $this->Users->find_parents($owner_id);
             }else{
                 $owner_tree = $this->owner_tree[$owner_id];
             }
+            
 
             #FIXME We need to determine the rights of the user in terms of the REALM not its position wrt the Owner tree
             #For the action flags
@@ -198,14 +204,16 @@ class PermanentUsersController extends AppController{
                     break;
                 }
             }
-                      
+                 
             $row['owner']   = $owner_tree;
             $row['owner_id']= $owner_id;
             $row['notes']   = $notes_flag;
 			$row['update']	= $action_flags['update'];
 			$row['delete']	= $action_flags['delete']; 
-            array_push($items,$row);      
+            array_push($items,$row); 
+                 
         }
+        
        
         $this->set(array(
             'items'         => $items,
@@ -545,8 +553,7 @@ class PermanentUsersController extends AppController{
         if(!$user){
             return;
         }
-
-        $entity =  $this->{$this->main_model}->privateAttrAdd();
+        $entity =  $this->{$this->main_model}->privateAttrAdd($this->request);
         $errors = $entity->errors();
         if($errors){
             $message = __('Could not create item');
@@ -567,7 +574,7 @@ class PermanentUsersController extends AppController{
             return;
         }
 
-        $entity =  $this->{$this->main_model}->privateAttrEdit();    
+        $entity =  $this->{$this->main_model}->privateAttrEdit($this->request);    
         $errors = $entity->errors();
         if($errors){
             $message = __('Could not edit item');
@@ -587,7 +594,7 @@ class PermanentUsersController extends AppController{
         if(!$user){
             return;
         }
-        if($this->{$this->main_model}->privateAttrDelete()){
+        if($this->{$this->main_model}->privateAttrDelete($this->request)){
             $message = __('Could not delete some items');
             $this->JsonErrors->errorMessage($message);  
         }else{

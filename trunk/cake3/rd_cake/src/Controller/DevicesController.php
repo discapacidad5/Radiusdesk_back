@@ -70,7 +70,7 @@ class DevicesController extends AppController{
                 array_push($heading_line,$c->name);
             }
         }
-        fputcsv($fp, $heading_line,';','"');
+        fputcsv($fp, $heading_line,',','"');
         foreach($q_r as $i){
 
             $columns    = array();
@@ -94,7 +94,7 @@ class DevicesController extends AppController{
                         array_push($csv_line,$i->{$column_name});  
                     }
                 }
-                fputcsv($fp, $csv_line,';','"');
+                fputcsv($fp, $csv_line,',','"');
             }
         }
 
@@ -115,7 +115,7 @@ class DevicesController extends AppController{
         }
                 
         $query = $this->{$this->main_model}->find();   
-        if($this->CommonQuery->build_with_realm_query($query,$user,['PermanentUsers','DeviceNotes' => ['Notes']]) == false){
+        if($this->CommonQuery->build_with_realm_query($query,$user,['PermanentUsers','DeviceNotes' => ['Notes']],'name','Devices') == false){
             return;
         }
         
@@ -485,7 +485,7 @@ class DevicesController extends AppController{
             return;
         }
 
-        $entity =  $this->{$this->main_model}->privateAttrAdd();
+        $entity =  $this->{$this->main_model}->privateAttrAdd($this->request);
         $errors = $entity->errors();
         if($errors){
             $message = __('Could not create item');
@@ -506,7 +506,7 @@ class DevicesController extends AppController{
             return;
         }
 
-        $entity =  $this->{$this->main_model}->privateAttrEdit();    
+        $entity =  $this->{$this->main_model}->privateAttrEdit($this->request);    
         $errors = $entity->errors();
         if($errors){
             $message = __('Could not edit item');
@@ -526,7 +526,7 @@ class DevicesController extends AppController{
         if(!$user){
             return;
         }
-        if($this->{$this->main_model}->privateAttrDelete()){
+        if($this->{$this->main_model}->privateAttrDelete($this->request)){
             $message = __('Could not delete some items');
             $this->JsonErrors->errorMessage($message);  
         }else{
