@@ -1021,7 +1021,7 @@ Ext.define('Rd.controller.cDevices', {
             );
         }else{
 
-            //We do not do double's
+            //We do double's
             var f = grid.getStore().find('attribute',a_val);
             if(f == -1){
                 grid.getStore().add(Ext.create('Rd.model.mPrivateAttribute',
@@ -1035,6 +1035,19 @@ Ext.define('Rd.controller.cDevices', {
                     }
                 ));
                 grid.getStore().sync();
+            }else{
+                //We allow second entried for multiple values
+                grid.getStore().add(Ext.create('Rd.model.mPrivateAttribute',
+                    {
+                        type            : 'check',
+                        attribute       : a_val,
+                        op              : '+=',
+                        value           : i18n('sReplace_this_value'),
+                        delete          : true,
+                        edit            : true
+                    }
+                ));
+                grid.getStore().sync(); 
             }
         }
     },

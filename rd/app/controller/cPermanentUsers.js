@@ -530,7 +530,6 @@ Ext.define('Rd.controller.cPermanentUsers', {
                     title :     pu_tab_name,
                     itemId:     pu_tab_id,
                     closable:   true,
-                    iconCls:    'edit', 
                     glyph: Rd.config.icnEdit,
                     layout:     'fit', 
                     items:      {'xtype' : 'pnlPermanentUser',pu_id: pu_id, pu_name: pu_tab_name, record: sr}
@@ -1327,7 +1326,7 @@ Ext.define('Rd.controller.cPermanentUsers', {
             );
         }else{
 
-            //We do not do double's
+            //We do double's since it is standard for FreeRADIUS
             var f = grid.getStore().find('attribute',a_val);
             if(f == -1){
                 grid.getStore().add(Ext.create('Rd.model.mPrivateAttribute',
@@ -1341,6 +1340,19 @@ Ext.define('Rd.controller.cPermanentUsers', {
                     }
                 ));
                 grid.getStore().sync();
+            }else{
+                //We allow second entried for multiple values
+                grid.getStore().add(Ext.create('Rd.model.mPrivateAttribute',
+                    {
+                        type            : 'check',
+                        attribute       : a_val,
+                        op              : '+=',
+                        value           : i18n('sReplace_this_value'),
+                        delete          : true,
+                        edit            : true
+                    }
+                ));
+                grid.getStore().sync(); 
             }
         }
     },
