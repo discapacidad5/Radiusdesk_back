@@ -618,7 +618,7 @@ Ext.define('Rd.controller.cProfileComponents', {
             );
         }else{
 
-            //We do not do double's
+            //We do double's
             var f = grid.getStore().find('attribute',a_val);
             if(f == -1){
                 grid.getStore().add(Ext.create('Rd.model.mProfileComponentEdit',
@@ -626,6 +626,16 @@ Ext.define('Rd.controller.cProfileComponents', {
                         type            : 'check',
                         attribute       : a_val,
                         op              : ':=',
+                        value           : i18n('sReplace_this_value')
+                    }
+                ));
+                grid.getStore().sync();
+            }else{
+                grid.getStore().add(Ext.create('Rd.model.mProfileComponentEdit',
+                    {
+                        type            : 'check',
+                        attribute       : a_val,
+                        op              : '+=',
                         value           : i18n('sReplace_this_value')
                     }
                 ));

@@ -53,8 +53,8 @@ Ext.define('Rd.controller.cVouchers', {
         urlPdfBase          : '/cake3/rd_cake/vouchers/export-pdf',
         urlEmailSend        : '/cake3/rd_cake/vouchers/email-voucher-details.json',
         
-		urlAddDevice        : '/cake2/rd_cake/vouchers/voucher_device_add.json',
-		urlAddCsv           : '/cake2/rd_cake/vouchers/add_csv/',
+		urlAddDevice        : '/cake3/rd_cake/vouchers/voucher_device_add.json',
+		urlAddCsv           : '/cake3/rd_cake/vouchers/add_csv/',
 		
 		urlDeleteRadaccts:  '/cake2/rd_cake/radaccts/delete.json',
         urlDeletePostAuths: '/cake2/rd_cake/radpostauths/delete.json'
@@ -1042,7 +1042,7 @@ Ext.define('Rd.controller.cVouchers', {
             );
         }else{
 
-            //We do not do double's
+            //We do double's
             var f = grid.getStore().find('attribute',a_val);
             if(f == -1){
                 grid.getStore().add(Ext.create('Rd.model.mPrivateAttribute',
@@ -1056,6 +1056,19 @@ Ext.define('Rd.controller.cVouchers', {
                     }
                 ));
                 grid.getStore().sync();
+            }else{
+                //We allow second entried for multiple values
+                grid.getStore().add(Ext.create('Rd.model.mPrivateAttribute',
+                    {
+                        type            : 'check',
+                        attribute       : a_val,
+                        op              : '+=',
+                        value           : i18n('sReplace_this_value'),
+                        delete          : true,
+                        edit            : true
+                    }
+                ));
+                grid.getStore().sync(); 
             }
         }
     },
