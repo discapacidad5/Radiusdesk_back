@@ -231,7 +231,24 @@ class FreeRadiusBehavior extends Behavior {
         if(isset($this->request->query['username'])){
             $username                           = $this->request->query['username'];
             $this->request->data['username']    = $username;
-
+            
+            //First time entries (Is numeric)
+            if(is_numeric($this->request->data['id'])){ //check Type remained the same
+                if($this->request->data['type'] == 'check'){
+                    $entity  = $this->{'Radchecks'}->get($this->request->data['id']);
+                    $this->{'Radchecks'}->patchEntity($entity, $this->request->data());
+                    $this->{'Radchecks'}->save($entity);
+                }else{
+                    $e_delete   = $this->{'Radchecks'}->get($this->request->data['id']);
+                    $this->{'Radchecks'}->delete($e_delete);
+                    $entity = $this->{'Radreplies'}->newEntity($this->request->data());
+                    $this->{'Radreplies'}->save($entity);
+                    $id = 'rpl_'.$entity->id;
+                    $this->request->data['id'] = $id;
+                }
+                return $entity;	
+            }
+               
             //Check if the type check was not changed
             if((preg_match("/^chk_/",$this->request->data['id']))&&($this->request->data['type']=='check')){ //check Type remained the same
                 //Get the id for this one
