@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 //use Cake\I18n\Time;
 use Cake\I18n\FrozenTime;
 
@@ -226,8 +227,9 @@ class DataUsagesController extends AppController {
             
             foreach($q_r as $tt){
                 $nas        = $tt->nasidentifier;      
-                $ent_nas    = $this->{'DynamicClients'}->find()->where(['DynamicClients.nasidentifier' => $nas])->first();
+                $ent_nas    = $this->{'DynamicClients'}->find()->where(['DynamicClients.nasidentifier' => $nas])->first();		
                 if($ent_nas){
+                    $nas_name   = $ent_nas->name;
                     if($ent_nas->data_limit_active){
                         $slot_start = FrozenTime::createFromTimestamp(
                             $this->_start_of_month($ent_nas->data_limit_reset_on,$ent_nas->data_limit_reset_hour,$ent_nas->data_limit_reset_minute));
@@ -251,6 +253,7 @@ class DataUsagesController extends AppController {
                         array_push($top,
                             [
                                 'nasid'         => $nas,
+								'nasname'		=> $nas_name,
                                 'data_in'       => $q_us->data_in,
                                 'data_out'      => $q_us->data_out,
                                 'data_total'    => $q_us->data_total,
@@ -277,9 +280,17 @@ class DataUsagesController extends AppController {
             $id = 1;
             foreach($q_r as $tt){
                 $nas        = $tt->nasidentifier;
+                
+                $nas_name   = "(UNKNOWN)";
+                $ent_nas    = $this->{'DynamicClients'}->find()->where(['DynamicClients.nasidentifier' => $nas])->first();
+                if($ent_nas){
+                    $nas_name   = $ent_nas->name;
+                }
+                
                 array_push($top,
                     [
                         'nasid'         => $nas,
+                        'nasname'		=> $nas_name,
                         'data_in'       => $tt->data_in,
                         'data_out'      => $tt->data_out,
                         'data_total'    => $tt->data_total,
