@@ -18,6 +18,7 @@ Ext.define('Rd.view.dataUsage.pnlDataUsageClientsDay', {
             storeId : 'dayClientsStore',
             fields  :[ 
                 {name: 'nasid',         type: 'string'},
+                {name: 'nasname',       type: 'string'},
                 {name: 'data_in',       type: 'int'},
                 {name: 'data_out',      type: 'int'},
                 {name: 'data_total',    type: 'int'}
@@ -96,9 +97,7 @@ Ext.define('Rd.view.dataUsage.pnlDataUsageClientsDay', {
                                 trackMouse: true,
                                 renderer: function (tooltip, record, item) {
                                     tooltip.setHtml(
-                                        "<h2>"+record.get('nasid')+"</h2><h3>"+Ext.ux.bytesToHuman(record.get('data_total'))+"</h3>"
-                                        
-                                    
+                                        "<h2>"+record.get('nasname')+"</h2><h3>"+record.get('nasid')+"</h3><h4>"+Ext.ux.bytesToHuman(record.get('data_total'))+"</h4>"
                                     );
                                 }
                             }    
@@ -115,7 +114,8 @@ Ext.define('Rd.view.dataUsage.pnlDataUsageClientsDay', {
                         store   : Ext.data.StoreManager.lookup('dayClientsStore'),
                         emptyText: 'No RADIUS Clients for Today',
                         columns: [
-                            { text: 'NAS Id',  dataIndex: 'nasid', flex: 1},
+                            { text: 'NAS Id',       dataIndex: 'nasid', flex: 1, hidden: true},
+                            { text: 'NAS Name',     dataIndex: 'nasname', flex: 1},
                             { text: 'Data In',   dataIndex: 'data_in',  hidden: true, renderer: function(value){
                                     return Ext.ux.bytesToHuman(value)              
                                 } 
