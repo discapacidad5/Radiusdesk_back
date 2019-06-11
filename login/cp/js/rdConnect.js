@@ -195,6 +195,9 @@ var rdConnect = (function () {
 
             var ip      = getParameterByName('uamip');
             var port    = getParameterByName('uamport');
+            
+            //ssl test
+            var ssl     = getParameterByName('ssl');
 
             if(ip != ''){  //Override defaults
                 uamIp = ip;
@@ -205,6 +208,16 @@ var rdConnect = (function () {
             if(port != ''){    //Override defaults
                 uamPort = port;
             }
+            
+            if(ssl != ''){
+                //console.log("The Captive Portal Supports SSL");
+                //console.log(ssl); 
+                uamIp   = ssl.replace(":4990/","");
+                uamIp   = uamIp.replace("https://","");
+                console.log("uamIP is "+uamIp);
+                uamPort = 4990;
+            }
+            
             return true;        //Is a hotspot
         }
         
@@ -236,7 +249,7 @@ var rdConnect = (function () {
         
         var coovaRefresh    = function(do_usage_also){
 		    if (typeof(do_usage_also) === "undefined") { do_usage_also = false; } //By default we give feedback
-            var urlStatus = 'http://'+uamIp+':'+uamPort+'/json/status';
+            var urlStatus = location.protocol+'//'+uamIp+':'+uamPort+'/json/status';
              
             $.ajax({url: urlStatus + "?callback=?", dataType: "jsonp",timeout: ajaxTimeout})
                 .done(function(j){
@@ -433,7 +446,7 @@ var rdConnect = (function () {
 	        showOverlay();
 		    showFeedback(i18n('sDisconnect_the_user'));
 		    
-		    var urlLogoff = 'http://'+uamIp+':'+uamPort+'/json/logoff';
+		    var urlLogoff = location.protocol+'//'+uamIp+':'+uamPort+'/json/logoff';
 		    var cb        = "?callback?"; //Coova uses 'callback'
 		    
 		    if(isMikroTik) {
@@ -742,7 +755,7 @@ $$('sliderData').refresh();
         
         var getLatestChallenge = function(){
 		    showFeedback(i18n('sGet_latest_challenge'));
-            var urlStatus = 'http://'+uamIp+':'+uamPort+'/json/status';
+            var urlStatus = location.protocol+'//'+uamIp+':'+uamPort+'/json/status';
             $.ajax({url: urlStatus + "?callback=?", dataType: "jsonp",timeout: ajaxTimeout})
             .done(function(j){
 			    hideFeedback();
@@ -804,7 +817,7 @@ $$('sliderData').refresh();
                 urlLogin = getParameterByName('link_login_only');
                 ajax = {url: urlLogin + "?var=?", dataType: "jsonp",timeout: ajaxTimeout, data: {username: userName, password: password}};
             } else {
-                urlLogin = 'http://' + uamIp + ':' + uamPort + '/json/logon';
+                urlLogin = location.protocol+'//' + uamIp + ':' + uamPort + '/json/logon';
                 ajax = { url: urlLogin + "?callback=?", dataType: "jsonp", timeout: ajaxTimeout, data: { username: userName, password: encPwd } };
             }         
             $.ajax(ajax)
@@ -1070,7 +1083,7 @@ $$('sliderData').refresh();
 		    socialName = a
 		    showFeedback(i18n('sStarting_social_login_for')+' '+ socialName)
 
-		    var urlStatus = 'http://'+uamIp+':'+uamPort+'/json/status';
+		    var urlStatus = location.protocol+'//'+uamIp+':'+uamPort+'/json/status';
             $.ajax({url: urlStatus + "?callback=?", dataType: "jsonp",timeout: ajaxTimeout})
             .done(function(j){
 			    hideFeedback();
@@ -1125,7 +1138,7 @@ $$('sliderData').refresh();
 
 	    var socialTempLogin	= function(encPwd){
 		    showFeedback(i18n('sLog_temp_user_into_Captive_Portal'));
-            var urlLogin = 'http://'+uamIp+':'+uamPort+'/json/logon';
+            var urlLogin = location.protocol+'//'+uamIp+':'+uamPort+'/json/logon';
             $.ajax({url: urlLogin + "?callback=?", dataType: "jsonp",timeout: ajaxTimeout, data: {username: userName, password: encPwd}})
             .done(function(j){
                 socialTempLoginResults(j);
@@ -1222,7 +1235,7 @@ $$('sliderData').refresh();
 	    var socialTempDisconnect 	=  function(){
 
             showFeedback(i18n('sDisconnect_the_social_temp_user'));
-            var urlLogoff = 'http://'+uamIp+':'+uamPort+'/json/logoff';
+            var urlLogoff = location.protocol+'//'+uamIp+':'+uamPort+'/json/logoff';
 
             $.ajax({url: urlLogoff + "?callback=?", dataType: "jsonp",timeout: ajaxTimeout})
             .done(function(j){     
@@ -1241,7 +1254,7 @@ $$('sliderData').refresh();
 
 	    var socialFinalSatus = function(){
 		    showFeedback(i18n('sGet_final_status_for_social_login'));
-		    var urlStatus = 'http://'+uamIp+':'+uamPort+'/json/status';
+		    var urlStatus = location.protocol+'//'+uamIp+':'+uamPort+'/json/status';
             $.ajax({url: urlStatus + "?callback=?", dataType: "jsonp",timeout: ajaxTimeout})
             .done(function(j){
 			    hideFeedback();
@@ -1291,7 +1304,7 @@ $$('sliderData').refresh();
 	    var socialFinalLogin = function(encPwd){
 		    showFeedback(i18n('sDoing_final_login'));
 
-		    var urlLogin = 'http://'+uamIp+':'+uamPort+'/json/logon';
+		    var urlLogin = location.protocol+'//'+uamIp+':'+uamPort+'/json/logon';
             $.ajax({url: urlLogin + "?callback=?", dataType: "jsonp",timeout: ajaxTimeout, data: {username: userName, password: encPwd}})
             .done(function(j){
                 socialFinalLoginResults(j);
