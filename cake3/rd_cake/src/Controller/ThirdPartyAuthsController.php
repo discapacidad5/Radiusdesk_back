@@ -51,6 +51,16 @@ class ThirdPartyAuthsController extends AppController{
     
     public function index(){
     
+        //10/6/19 FB changed things so we have to sent the query string through the 'state' item
+        //If it is present extract and append to it can work as before
+        if(isset($this->request->query['state'])){
+            $result = [];
+            parse_str(urldecode($this->request->query['state']),$result); 
+            foreach(array_keys($result) as $key){
+                $this->request->query[$key] = $result[$key];
+            } 
+        }
+        
         //Only go on if it is a social login based request
         if(!isset($this->request->query['social_login'])){
             $this->JsonErrors->errorMessage('Does not appear to be a social login type request');
@@ -163,7 +173,8 @@ class ThirdPartyAuthsController extends AppController{
         
             $domain = parse_url(Router::url('/', true));
             $base_url = $domain['scheme'].'://'.$domain['host'];
-            $callback = $domain['scheme'].'://'.$domain['host'].$domain['path'].$this->cb.'?'.$query_string;
+            //$callback = $domain['scheme'].'://'.$domain['host'].$domain['path'].$this->cb.'?'.$query_string;
+            $callback = $domain['scheme'].'://'.$domain['host'].$domain['path'].$this->cb;
             
             $this->dynamic_detail_user_id = $q_r->dynamic_detail->user_id;
             
@@ -171,14 +182,17 @@ class ThirdPartyAuthsController extends AppController{
                 if($ssli->name == $this->request->query['idp_name']){
                     $this->social_login_info = $ssli;
                      $config = [
-                        "base_url" => $base_url,
+                        "base_url" => $base_url,   
                         "providers"    => [
                                 $ssli->name => [
                                     'enabled'   => true,
                                     'callback'  => $callback,
                                     'keys'      => [ "id" => $ssli->special_key, "secret" => $ssli->secret],
                                     'scope'     => ['email','public_profile'], // optional
-                                    'display'   => "popup" // optional
+                                    'display'   => "popup", // optional,
+                                    'authorize_url_parameters' => [
+                                        'state'   => $query_string
+                                    ]
                                  ]
                             ]
                         ];       
